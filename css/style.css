@@ -1,0 +1,189 @@
+.section-one{
+    
+display:grid;
+grid-template-columns: repeat(6, 1fr);
+grid-template-rows: 5% 30% 65%;
+height: 100vh;
+grid-template-areas: 
+". . . . . ."
+"m m m m m m"
+"f f f f f f"
+;
+    
+    
+}
+
+.container-one{
+display: flex;
+flex-direction: column;
+grid-area:m;
+justify-content: center;
+align-items: center;
+}
+
+.container-two{
+grid-area:f;     
+background-image: url("../img/vrmockup.png");
+background-size:80%;
+background-repeat: no-repeat;
+background-position: top center;
+    
+}
+
+.logo{
+    
+width:20%;
+margin-bottom:1.5%;
+    
+}
+
+
+
+
+.button {
+font-family: 'Karla', sans-serif;
+background-color: #EF4A52;
+border: none;
+color: white;
+padding: 15px 100px 15px 100px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 1.5em;
+font-weight:bold;
+margin: 4px 2px;
+-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.44);
+-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.44);
+box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.44);
+transition: 1s;
+
+}
+
+.button1:hover {
+    
+opacity: 1;
+background-color: #C73D44;
+}
+
+
+.button1 {
+border-radius: 50px;
+cursor: pointer;
+}
+
+
+.section-two{
+    
+display:grid;
+grid-template-columns: repeat(6, 1fr);
+grid-template-rows: 15% 35% 35% 15%;
+height: 100vh;
+background-color: #EF4A52;
+grid-template-areas: 
+". . . . . ."
+"m m m m m m"
+"f f f f f f"
+". . . . . ."
+;
+    
+    
+}
+
+.container-three{
+display: flex;
+flex-direction: column;
+grid-area:m;
+justify-content: center;
+align-items: center;
+}
+
+.container-four{
+display: flex;
+flex-direction: column;
+grid-area:f;
+justify-content: center;
+align-items: center;
+}
+
+.icon{
+
+width:100%;
+  transition: 0.8s; 
+}
+
+.icon:hover{  
+opacity:0.5; 
+cursor: pointer;
+}
+
+
+h1{
+    
+font-family: 'Karla', sans-serif;
+color:white;
+font-size:1.6em;
+letter-spacing: 3px;
+text-align: center;
+}
+
+a{ text-decoration: none;}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    
+    .container-two{
+grid-area:f;     
+background-image: url("../img/vrmockup.png");
+background-size:cover;
+background-repeat: no-repeat;
+background-position: 10%;
+    
+}
+
+.logo{
+    
+width:80%;
+margin-bottom:10%;
+    
+}
+
+
+
+
+.button {
+font-family: 'Karla', sans-serif;
+background-color: #EF4A52;
+border: none;
+color: white;
+padding: 10px 40px 10px 40px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 1.5em;
+font-weight:bold;
+margin: 4px 2px;
+-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.44);
+-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.44);
+box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.44);
+transition: 1s;
+
+}
+    
+.container-three{
+display: flex;
+flex-direction: column;
+grid-area:m;
+justify-content: center;
+align-items: center;
+margin-bottom:5%;
+}
+
+.container-four{
+margin-top:5%;
+display: flex;
+flex-direction: column;
+grid-area:f;
+justify-content: center;
+align-items: center;
+}
+  
+}
