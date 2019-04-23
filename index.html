@@ -1,89 +1,162 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Titanic Quarter</title>
-    <meta name="description" content="Titanic Quarter">
-    
-<script src="js/aframeTEST.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="js/aframe-dialog-popup-component.js"></script>
-<script src="js/webvr.js"></script>
-
+    <meta name="description" content="Composite — A-Frame">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.7.1/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/aframe-ui-modal-component.js"></script>
+    <script src="js/aframe-src-fit-component.js"></script>
 </head>
 
-    <body>
+<body>
 
     <a-scene>
-        <a-assets>
-            <img id="box" src="img/white.jpg">
-            <img id="stroke" src="img/stroke.png">
-            <img id="cityhall" src="img/cityhall.jpg">
-             <img id="clock" src="img/clock.jpg">
-            <img id="logo" src="img/logo.png">
-            <img id="shadow2" src="img/radial-shadow-2.png">
-            <img id="background" src="img/360background.jpg">
-        </a-assets>
-        
-          <a-entity
-        id="dialog"
-        position="0 0 -3" 
-        dialog-popup="
-          openIconImage: img/titanic.jpg ; 
-          closeIconImage: img/close.png;
-          image: img/options1.png;
-          image2: img/play.png; 
-          dialogBoxWidth:0px;
-          dialogBoxHeight:0px;
-          imageWidth: 4px;
-          imageHeight:  2px;
-          image2Width: 0.75px;
-          image2Height:  0.27px;        
-                    dialogBoxPadding:0px;
-                      closeIconRadius:0.1px;" 
-                    foo="target: titanic.html"
-                    
-                    ></a-entity>
-        
- <!-- Stroke --> 
-        
-<a-image position="0 0.07 -3.01" rotation="0 0 0" src="#stroke" width="1.7" height="1"></a-image>
-        
-<a-image position="2.08 0.07 -2.64" rotation="0 -20 0" src="#stroke" width="1.7" height="1"></a-image>
-
-<a-image position="-2.08 0.07 -2.64" rotation="0 20" src="#stroke" width="1.7" height="1"></a-image>
-
- <!-- White Planes -->        
-        
- <!-- logo -->    
-        
-<a-image position="0 1 -3" rotation="0 0 0" src="#logo" width="1" height="0.3"></a-image>
-
-        <a-image radius="5.7" position="0 -5 0" src="#shadow2" rotation="-90 0 0" scale="6 6 6"></a-image>
 
         <!-- CURSOR ENTITY -->
-        <a-entity rotation="-10 0 0" position="0 0 0">
-            <a-entity id="camera" camera look-controls rotation="0 0 0" wasd-controls>
+        <a-entity rotation="0 0 0" position="0 0 2">
+            <a-entity id="camera" far: 20; camera look-controls rotation="0 0 0" wasd-controls>
                 <!-- MAIN CURSOR -->
-                <a-entity cursor="rayOrigin: mouse fuse: true; maxDistance: 500; timeout: 3000;" id="cursor-main" position="0 0 -2" geometry="primitive: ring; radiusOuter: 0.04; radiusInner: 0.03; thetaLength: 360; thetaStart: 90;" material="color: #439DC2;">
+                <a-entity raycaster="objects: .clickable" cursor="fuse: true; maxDistance: 500; timeout: 1500;" id="cursor-main" position="0 0 -1.5" geometry="primitive: ring; radiusOuter: 0.04; radiusInner: 0.03; thetaLength: 360; thetaStart: 90;" material="color: #439DC2;">
                     <a-animation begin="cursor-fusing" attribute="geometry.thetaLength" fill="forwards" from="360" to="0" easing="ease-in"></a-animation>
                     <a-animation begin="mouseleave" attribute="geometry.thetaLength" fill="backwards" from="0" to="360" dur="0"></a-animation>
                 </a-entity>
-                <a-entity id="cursor-loader" position="0 0 -2.0001" geometry="primitive: ring; radiusOuter: 0.04; radiusInner: 0.03;" material="color: #2ADD2A;">
+                <a-entity id="cursor-loader" position="0 0 -1.51" geometry="primitive: ring; radiusOuter: 0.04; radiusInner: 0.03;" material="color: #2ADD2A;">
                 </a-entity>
             </a-entity>
         </a-entity>
 
-        <a-sky src="#background"></a-sky>
-        
+        <a-assets>
+            <img id="360" src="img/titanic360.jpg">
+            <img id="menu" src="navigation/menubar.png">
+            <img id="submenu" src="navigation/submenubar.png">
+            <img id="location" src="navigation/location-icon.png">
+            <img id="3d" src="navigation/3d-icon.png">
+            <img id="information" src="navigation/information-icon.png">
+            <img id="home" src="navigation/home-icon.png">
+            <img id="tqicon" src="img/icon1.png">
+            <img id="bchicon" src="img/icon2.png">
+            <img id="acicon" src="img/icon3.png">
+            <img id="info" src="img/info.png">
+            <img id="3d1" src="img/icon3d1.png">
+            <img id="3d2" src="img/icon3d2.png">
+            <img id="3d3" src="img/icon3d3.png">
+            <img id="close" src="navigation/close.png">
+            
+
+        </a-assets>
+
+        <a-entity ui-modal="triggerElement:#selection;" visible="false">
+
+         <a-image src="#submenu" scale="3.5 3.5 0" position="0 -0.25 2" src-fit></a-image>
+            
+            <a-image position="-1 -0.25 2.1" class="clickable" src="#tqicon" scale="0.7 0.7 0" link="href:location1.html; on: click; visualAspectEnabled: false" src-fit></a-image>
+            
+             <a-image position="0 -0.25 2.1" class="clickable" src="#acicon" scale="0.7 0.7 0" link="href:location3.html; on: click; visualAspectEnabled: false" src-fit></a-image>
+            
+             <a-image position="1 -0.25 2.1" class="clickable" src="#bchicon" scale="0.7 0.7 0" link="href:location2.html; on: click; visualAspectEnabled: false" src-fit></a-image>
+            
+            <a-image position="1.2 0 2.1" class="clickable" src="#close" scale="0.1 0.1 0" id="close" src-fit></a-image>
+
+        </a-entity>
+
+        <a-entity ui-modal="triggerElement:#test;" visible="false" look-at="[mouse]">
+
+        <a-image src="#submenu" rotation="0 1 0" position="-0.30 -0.4 2.32" scale="1.5 0.26 0"></a-image>
+            
+        <a-image position="-0.75 -0.39 2.35" class="clickable" rotation="0 0 0" src="#3d1" scale="0.3 0.15 0" link="href:model.html; on: click; visualAspectEnabled: false"></a-image>
+            
+        <a-image position="-0.28 -0.39 2.35" class="clickable" rotation="0 0 0" src="#3d2" scale="0.35 0.16 0" link="href:model2.html; on: click; visualAspectEnabled: false"></a-image>
+            
+        <a-image position="0.18 -0.38 2.4" class="clickable" rotation="0 0 0" src="#3d3" scale="0.31 0.15 0" link="href:model3.html; on: click; visualAspectEnabled: false"></a-image>
+
+        </a-entity>
+
+        <a-entity ui-modal="triggerElement:#infobox;" visible="false">
+
+            <a-image position="0 0 2.45" src="#info" scale="1.7 0.9 0"></a-image>
+
+        </a-entity>
+
+        <a-sky src="#360"></a-sky>
+
+        <a-image src="#menu" width="3" scale="3 3 0" position="0 -0.29 -1" src-fit></a-image>
+
+        <a-image class="clickable" src="#home" scale="0.3 0.3 0" position="-1 -0.35 -0.9" link="href:options.html; on: click; visualAspectEnabled: false" src-fit></a-image>
+
+        <a-image id="selection" class="clickable" src="#location" scale="0.3 0.3 0" position="-0.5 -0.35 -0.9" src-fit></a-image>
+
+        <a-image id="test" class="clickable" src="#3d" scale="0.3 0.3 0" position="0.5 -0.35 -0.9" src-fit></a-image>
+
+        <a-image id="infobox" class="clickable" src="#information" scale="0.3 0.3 0" position="1 -0.35 -0.9" src-fit></a-image>
 
     </a-scene>
-        
-        <script>
-        
-        window.addEventListener('vrdisplayactivate' function (evt) {
-  /* A page can now start presenting in the headset */
-  vrDisplay.requestPresent([{ source: myCanvas }]).then(function () { ... });
-}
-        
-        </script>
+
+    <script>
+        window.addEventListener('vrdisplayactivate'function(evt) {
+                    /* A page can now start presenting in the headset */
+                    vrDisplay.requestPresent([{
+                        source: myCanvas
+                    }]).then(function() {
+                        ...
+                    });
+                }
+    </script>
+    
+    <script>
+    
+    var ModalEffects = (function() {
+
+    function init() {
+
+        var overlay = document.querySelector( 'ui-modal' );
+
+        [].slice.call( document.querySelectorAll( '#selection' ) ).forEach( function( el, i ) {
+
+            var modal = document.querySelector( '#' + el.getAttribute( 'data-modal' ) ),
+                close = modal.querySelector( '#close' );
+
+            function removeModal( hasPerspective ) {
+                classie.remove( modal, 'md-show' );
+
+                if( hasPerspective ) {
+                    classie.remove( document.documentElement, 'md-perspective' );
+                }
+            }
+
+            function removeModalHandler() {
+                removeModal( classie.has( el, 'md-setperspective' ) ); 
+            }
+
+            el.addEventListener( 'click', function( ev ) {
+                classie.add( modal, 'md-show' );
+                overlay.removeEventListener( 'click', removeModalHandler );
+                overlay.addEventListener( 'click', removeModalHandler );
+
+                if( classie.has( el, 'md-setperspective' ) ) {
+                    setTimeout( function() {
+                        classie.add( document.documentElement, 'md-perspective' );
+                    }, 25 );
+                }
+            });
+
+            close.addEventListener( 'click', function( ev ) {
+                ev.stopPropagation();
+                removeModalHandler();
+            });
+
+        } );
+
+    }
+
+    init();
+
+})();
+    
+    </script>
+    
+</body>
+
+</html>
